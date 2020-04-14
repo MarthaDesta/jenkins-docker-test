@@ -1,9 +1,7 @@
 pipeline {
     agent {
-        docker {
-            image 'python'
-            label 'generic'
-        } //docker
+        dockerfile true
+        label 'generic'
     } //agent
     stages {
         stage("Run Hello World") {
@@ -13,5 +11,12 @@ pipeline {
                 """
             } //steps
         } //stage
+        stage("Test requests") {
+            steps {
+                sh """
+                    python requestgoogle.py
+                """
+            }
+        }
     } //stages
 } //pipeline
